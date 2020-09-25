@@ -2,8 +2,16 @@ package entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(
+                name = "getAllStudents",
+                query = "SELECT s FROM Student s ORDER BY s.name" // JPQL
+        )
+})
 public class Student {
     @Id
     private String id;
@@ -52,4 +60,6 @@ public class Student {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }

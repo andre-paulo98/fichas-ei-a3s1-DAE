@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="AcademicManagement-1.0-SNAPSHOT.war">
+    <root id="archive" name="academics.war">
       <element id="artifact" artifact-name="AcademicManagement:war exploded" />
     </root>
   </artifact>
