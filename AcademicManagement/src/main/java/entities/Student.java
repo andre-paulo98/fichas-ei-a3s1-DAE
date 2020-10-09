@@ -1,8 +1,9 @@
 package entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @NamedQueries({
@@ -12,66 +13,24 @@ import javax.validation.constraints.NotNull;
         )
 })
 @Table(name="STUDENTS")
-public class Student {
-    @Id
-    private String id;
-
-    @NotNull
-    private String password;
-
-    @NotNull
-    private String name;
-
-    @NotNull
-    @Email
-    private String email;
+public class Student extends User {
 
     @ManyToOne
     @JoinColumn(name="COURSE_CODE")
     @NotNull
     private Course course;
 
+    @ManyToMany(mappedBy = "students")
+    private List<Subject> subjects;
+
     public Student() {
+        subjects = new LinkedList<>();
     }
 
     public Student(String id, String password, String name, String email, Course course) {
-        this.id = id;
-        this.password = password;
-        this.name = name;
-        this.email = email;
+        super(id, password, name, email);
         this.course = course;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+        subjects = new LinkedList<>();
     }
 
     public Course getCourse() {
@@ -81,4 +40,22 @@ public class Student {
     public void setCourse(Course course) {
         this.course = course;
     }
+
+    public List<Subject> getSubjects() {
+        return subjects;
+    }
+
+    public void setSubjects(List<Subject> subjects) {
+        this.subjects = subjects;
+    }
+
+    public void addSubject(Subject subject) {
+        subjects.add(subject);
+    }
+
+    public void removeSubject(Subject subject) {
+        subjects.remove(subject);
+    }
+
+
 }

@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @NamedQueries({
@@ -22,14 +23,19 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = CascadeType.REMOVE)
     private List<Student> students;
 
+    @OneToMany(mappedBy = "course")
+    private List<Subject> subjects;
+
     public Course(int id, String name) {
         this.id = id;
         this.name = name;
         students = new LinkedList<>();
+        subjects = new LinkedList<>();
     }
 
     public Course() {
         students = new LinkedList<>();
+        subjects = new LinkedList<>();
     }
 
     public int getId() {
@@ -62,5 +68,29 @@ public class Course {
 
     public void removeStudent(Student student) {
         students.remove(student);
+    }
+
+    public void addSubject(Subject subject) {
+        subjects.add(subject);
+    }
+
+    public void removeSubject(Subject subject) {
+        subjects.remove(subject);
+    }
+
+
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return id == course.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

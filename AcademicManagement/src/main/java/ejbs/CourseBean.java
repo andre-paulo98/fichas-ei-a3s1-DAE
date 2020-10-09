@@ -22,4 +22,10 @@ public class CourseBean {
         return (List<Course>) entityManager.createNamedQuery("getAllCourses").getResultList();
     }
 
+    public Course findCourse(int id) {
+        return entityManager.find(Course.class, id);
+    }
+
+
+
 }

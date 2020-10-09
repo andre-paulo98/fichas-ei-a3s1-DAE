@@ -22,7 +22,7 @@
         </template>
       </select>
     </div>
-    <nuxt-link to="/">Return</nuxt-link>
+    <nuxt-link to="/students">Return</nuxt-link>
     <button type="reset">RESET</button>
     <button @click.prevent="create">CREATE</button>
   </form>
