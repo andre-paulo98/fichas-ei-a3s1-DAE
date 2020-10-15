@@ -29,3 +29,6 @@ Accept: application/json
 ##### GetStudentSubjects s1
 GET http://localhost:8080/academics/api/students/s2/subjects
 Accept: application/json
+
+#### GetTeachers
+GET http://localhost:8080/academics/api/teachers

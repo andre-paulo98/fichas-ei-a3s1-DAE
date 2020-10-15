@@ -12,7 +12,6 @@ import java.util.List;
                 query = "SELECT s FROM Student s ORDER BY s.name" // JPQL
         )
 })
-@Table(name="STUDENTS")
 public class Student extends User {
 
     @ManyToOne

@@ -1,8 +1,11 @@
 package dtos;
 
 import entities.Course;
+import entities.Subject;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class SubjectDTO implements Serializable {
 
@@ -11,19 +14,34 @@ public class SubjectDTO implements Serializable {
     private String name;
     private String courseName;
     private int courseCode;
-    private int courseYear;
+    private String courseYear;
     private int scholarYear;
 
 	public SubjectDTO() {
 	}
 
-	public SubjectDTO(int code, String name, Course course, int courseYear, int scholarYear) {
+	public SubjectDTO(int code, String name, int courseCode, String courseName, String courseYear, int scholarYear) {
 		this.code = code;
 		this.name = name;
-		this.courseCode = course.getId();
-		this.courseName = course.getName();
+		this.courseCode = courseCode;
+		this.courseName = courseName;
 		this.courseYear = courseYear;
 		this.scholarYear = scholarYear;
+	}
+
+	public static SubjectDTO toDTO(Subject subject) {
+		return new SubjectDTO(
+				subject.getCode(),
+				subject.getName(),
+				subject.getCourse().getId(),
+				subject.getCourse().getName(),
+				subject.getCourseYear(),
+				subject.getScholarYear()
+		);
+	}
+
+	public static List<SubjectDTO> toDTOs(List<Subject> subjects) {
+		return subjects.stream().map(SubjectDTO::toDTO).collect(Collectors.toList());
 	}
 
 	public int getCode() {
@@ -58,11 +76,11 @@ public class SubjectDTO implements Serializable {
 		this.courseCode = courseCode;
 	}
 
-	public int getCourseYear() {
+	public String getCourseYear() {
 		return courseYear;
 	}
 
-	public void setCourseYear(int courseYear) {
+	public void setCourseYear(String courseYear) {
 		this.courseYear = courseYear;
 	}
 

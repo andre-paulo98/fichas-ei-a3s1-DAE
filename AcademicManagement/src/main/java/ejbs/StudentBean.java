@@ -30,25 +30,34 @@ public class StudentBean {
     }
 
     public List<Student> getAllStudents() {
-        // remember, maps to: “SELECT s FROM Student s ORDER BY s.name”
         return (List<Student>) entityManager.createNamedQuery("getAllStudents").getResultList();
     }
 
-    public Student findStudent(String id) {
+    public Student getStudent(String id) {
         return entityManager.find(Student.class, id);
     }
 
-    public void enrollStudentInSubject(String id, int subjectCode) {
-        Student student = findStudent(id);
+    public void update(String id, String password, String name, String email, int courseCode) {
+        Student student = entityManager.find(Student.class, id);
         if(student != null) {
-            Subject subject = entityManager.find(Subject.class, subjectCode);
-            if(subject != null) {
-                if(subject.getCourse().equals(student.getCourse()) && !subject.getStudents().contains(student)) {
-                    student.addSubject(subject);
-                    subject.addStudent(student);
-                }
+            Course course = entityManager.find(Course.class, courseCode);
+            if(course != null) {
+                student.setPassword(password);
+                student.setName(name);
+                student.setEmail(email);
+                student.setCourse(course);
+
+                entityManager.persist(course);
+            } else {
+                throw new NotFoundException("COURSE NOT FOUND");
             }
+        } else {
+            throw new NotFoundException("STUDENT NOT FOUND");
         }
     }
 
+    public void delete(String id) {
+        Student student = getStudent(id);
+        entityManager.remove(student);
+    }
 }

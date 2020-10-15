@@ -26,7 +26,7 @@ public class Subject {
     private Course course;
 
     @Column(name = "COURSE_YEAR")
-    private int courseYear;
+    private String courseYear;
 
     @Column(name = "SCHOLAR_YEAR")
     private int scholarYear;
@@ -44,7 +44,7 @@ public class Subject {
         students = new LinkedHashSet<>();
     }
 
-    public Subject(int code, String name, Course course, int courseYear, int scholarYear, Set<Student> students) {
+    public Subject(int code, String name, Course course, String courseYear, int scholarYear, Set<Student> students) {
         this.code = code;
         this.name = name;
         this.course = course;
@@ -77,11 +77,11 @@ public class Subject {
         this.course = course;
     }
 
-    public int getCourseYear() {
+    public String getCourseYear() {
         return courseYear;
     }
 
-    public void setCourseYear(int courseYear) {
+    public void setCourseYear(String courseYear) {
         this.courseYear = courseYear;
     }
 
@@ -109,6 +109,19 @@ public class Subject {
         students.remove(student);
     }
 
+    public Set<Teacher> getTeachers() {
+        return teachers;
+    }
 
+    public void setTeachers(Set<Teacher> teachers) {
+        this.teachers = teachers;
+    }
 
+    public void addTeacher(Teacher teacher) {
+        teachers.add(teacher);
+    }
+
+    public void removeTeacher(Teacher teacher) {
+        teachers.remove(teacher);
+    }
 }

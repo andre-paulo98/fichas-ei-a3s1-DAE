@@ -14,6 +14,10 @@ public class ConfigBean {
 	CourseBean courseBean;
 	@EJB
 	SubjectBean subjectBean;
+	@EJB
+	TeacherBean teacherBean;
+	@EJB
+	AdministratorBean administratorBean;
 
 	@PostConstruct
 	public void populateDB() {
@@ -23,12 +27,13 @@ public class ConfigBean {
 		courseBean.create(2, "PSI");
 
 		System.out.println("##### Creating subjects...");
-		subjectBean.create(1, "DAE", courseBean.findCourse(1), 2020, 3);
-		subjectBean.create(2, "DAD", courseBean.findCourse(1), 2020, 3);
-		subjectBean.create(3, "IS", courseBean.findCourse(1), 2020, 3);
+		subjectBean.create(1, "DAE", courseBean.getCourse(1), "2020/2021", 3);
+		subjectBean.create(2, "DAD", courseBean.getCourse(1), "2020/2021", 3);
+		subjectBean.create(3, "IS", courseBean.getCourse(1), "2020/2021", 3);
 
-		subjectBean.create(4, "DAPLIC", courseBean.findCourse(2), 2020, 2);
-		subjectBean.create(5, "PWEBC", courseBean.findCourse(2), 2020, 1);
+		subjectBean.create(4, "DAPLIC", courseBean.getCourse(2), "2020/2021", 2);
+		subjectBean.create(5, "PWEBC", courseBean.getCourse(2), "2020/2021", 1);
+		subjectBean.create(6, "PWEBCCCCC", courseBean.getCourse(2), "2020/2021", 1);
 
 		System.out.println("##### Creating students...");
 		studentBean.create("s1", "1", "Eduardo Paixão", "eduardo@mail.com", 1);		// EI
@@ -44,21 +49,34 @@ public class ConfigBean {
 		studentBean.create("s11", "1", "Nelson Fonseca", "nelson@mail.com", 1);		// EI
 
 		System.out.println("##### Enroling Students...");
-		studentBean.enrollStudentInSubject("s1", 1);
-		studentBean.enrollStudentInSubject("s1", 2);
-		studentBean.enrollStudentInSubject("s1", 3);
+		subjectBean.enrollStudentInSubject(1, "s1");
+		subjectBean.enrollStudentInSubject(2, "s1");
+		subjectBean.enrollStudentInSubject(3, "s1");
 
-		studentBean.enrollStudentInSubject("s2", 1);
-		studentBean.enrollStudentInSubject("s2", 2);
-		studentBean.enrollStudentInSubject("s2", 3);
+		subjectBean.enrollStudentInSubject(1, "s2");
+		subjectBean.enrollStudentInSubject(2, "s2");
+		subjectBean.enrollStudentInSubject(3, "s2");
 
-		studentBean.enrollStudentInSubject("s4", 1);
-		studentBean.enrollStudentInSubject("s4", 2);
+		subjectBean.enrollStudentInSubject(1, "s4");
+		subjectBean.enrollStudentInSubject(2, "s4");
 
-		studentBean.enrollStudentInSubject("s7", 4);
-		studentBean.enrollStudentInSubject("s7", 5);
+		subjectBean.enrollStudentInSubject(4, "s7");
+		subjectBean.enrollStudentInSubject(5, "s7");
 
-		studentBean.enrollStudentInSubject("s6", 5);
+		subjectBean.enrollStudentInSubject(5, "s6");
+
+
+		System.out.println("##### Creating teachers...");
+		teacherBean.create("t1", "1", "Andreia Torres", "andreia@mail.com", "A1");
+		teacherBean.create("t2", "1", "Samuel Rebotim", "samuel@mail.com", "A2");
+		teacherBean.create("t3", "1", "Orlando Milheiriço", "orlando@mail.com", "A3");
+		teacherBean.create("t4", "1", "Edgar Roriz", "edgar@mail.com", "A4");
+
+
+		System.out.println("##### Creating admins...");
+		administratorBean.create("a1", "1", "super Admin1", "a1@mail.com");
+		administratorBean.create("a2", "2", "super Admin2", "a2@mail.com");
+
 
 		System.out.println("##### FINISHED!!");
 	}
