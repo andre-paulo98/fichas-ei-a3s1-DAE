@@ -6,12 +6,16 @@ import dtos.TeacherDTO;
 import ejbs.CourseBean;
 import entities.Course;
 import entities.Student;
+import exceptions.MyConstraintViolationException;
+import exceptions.MyEntityExistsException;
+import exceptions.MyEntityNotFoundException;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/courses") // relative url web path for this service
 @Produces({MediaType.APPLICATION_JSON}) // injects header “Content-Type: application/json”
@@ -24,7 +28,7 @@ public class CourseService {
     @GET // means: to call this endpoint, we need to use the HTTP GET method
     @Path("/") // means: the relative url path is “/api/students/”
     public List<CourseDTO> getAllCoursesWS() {
-        return CourseDTO.toDTOs(courseBean.getAllCourses());
+        return CourseService.toDTOs(courseBean.getAllCourses());
     }
 
     @GET
@@ -33,7 +37,7 @@ public class CourseService {
         Course course = courseBean.getCourse(id);
         if (course != null) {
             return Response.status(Response.Status.OK)
-                    .entity(CourseDTO.toDTO(course))
+                    .entity(CourseService.toDTO(course))
                     .build();
         }
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -43,9 +47,8 @@ public class CourseService {
 
     @POST
     @Path("/")
-    public Response createNewCourse(CourseDTO courseDTO) {
+    public Response createNewCourse(CourseDTO courseDTO) throws MyEntityExistsException, MyConstraintViolationException {
         courseBean.create(
-                courseDTO.getId(),
                 courseDTO.getName()
         );
 
@@ -53,13 +56,13 @@ public class CourseService {
         if (newCourse == null)
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         return Response.status(Response.Status.CREATED)
-                .entity(CourseDTO.toDTO(newCourse))
+                .entity(CourseService.toDTO(newCourse))
                 .build();
     }
 
     @PUT
     @Path("{id}")
-    public Response updateCourse(@PathParam("id") int id, CourseDTO courseDTO) {
+    public Response updateCourse(@PathParam("id") int id, CourseDTO courseDTO) throws MyEntityNotFoundException, MyConstraintViolationException {
         courseBean.update(id,
                 courseDTO.getName());
 
@@ -70,13 +73,13 @@ public class CourseService {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
 
         return Response.status(Response.Status.OK)
-                .entity(CourseDTO.toDTO(newCourse))
+                .entity(CourseService.toDTO(newCourse))
                 .build();
     }
 
     @DELETE
     @Path("{id}")
-    public Response deleteStudent(@PathParam("id") int id) {
+    public Response deleteStudent(@PathParam("id") int id) throws MyEntityNotFoundException {
 
         courseBean.delete(id);
 
@@ -89,6 +92,19 @@ public class CourseService {
                 .entity("SUCCESS")
                 .build();
 
+    }
+
+    // Converts an entity Student to a DTO Student class
+    public static CourseDTO toDTO(Course course) {
+        return new CourseDTO(
+                course.getId(),
+                course.getName()
+        );
+    }
+
+    // converts an entire list of entities into a list of DTOs
+    public static List<CourseDTO> toDTOs(List<Course> courses) {
+        return courses.stream().map(CourseService::toDTO).collect(Collectors.toList());
     }
 
 }

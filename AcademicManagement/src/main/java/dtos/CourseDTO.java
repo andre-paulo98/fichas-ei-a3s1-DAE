@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 
 public class CourseDTO implements Serializable {
 
-    private int id;
+    private long id;
     private String name;
 
-    public CourseDTO(int id, String name) {
+    public CourseDTO(long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -19,24 +19,11 @@ public class CourseDTO implements Serializable {
     public CourseDTO() {
     }
 
-    // Converts an entity Student to a DTO Student class
-    public static CourseDTO toDTO(Course course) {
-        return new CourseDTO(
-                course.getId(),
-                course.getName()
-        );
-    }
-
-    // converts an entire list of entities into a list of DTOs
-    public static List<CourseDTO> toDTOs(List<Course> courses) {
-        return courses.stream().map(CourseDTO::toDTO).collect(Collectors.toList());
-    }
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

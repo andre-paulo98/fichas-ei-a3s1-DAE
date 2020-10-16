@@ -16,7 +16,8 @@ import java.util.Objects;
 public class Course {
 
     @Id
-    private int id;
+    @GeneratedValue
+    private long id;
 
     private String name;
 
@@ -26,8 +27,17 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Subject> subjects;
 
+    @Version
+    private int version;
+
     public Course(int id, String name) {
         this.id = id;
+        this.name = name;
+        students = new LinkedList<>();
+        subjects = new LinkedList<>();
+    }
+
+    public Course(String name) {
         this.name = name;
         students = new LinkedList<>();
         subjects = new LinkedList<>();
@@ -38,11 +48,11 @@ public class Course {
         subjects = new LinkedList<>();
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

@@ -12,13 +12,14 @@ public class StudentDTO implements Serializable {
 	private String password;
 	private String name;
 	private String email;
-	private int courseCode;
+	private long courseCode;
 	private String courseName;
+	private List<SubjectDTO> subjectDTOS;
 
 	public StudentDTO() {
 	}
 
-	public StudentDTO(String id, String password, String name, String email, int courseCode, String courseName) {
+	public StudentDTO(String id, String password, String name, String email, long courseCode, String courseName) {
 		this.id = id;
 		this.password = password;
 		this.name = name;
@@ -27,19 +28,14 @@ public class StudentDTO implements Serializable {
 		this.courseName = courseName;
 	}
 
-	public static StudentDTO toDTO(Student student) {
-		return new StudentDTO(
-				student.getId(),
-				student.getPassword(),
-				student.getName(),
-				student.getEmail(),
-				student.getCourse().getId(),
-				student.getCourse().getName()
-		);
-	}
-
-	public static List<StudentDTO> toDTOs(List<Student> students) {
-		return students.stream().map(StudentDTO::toDTO).collect(Collectors.toList());
+	public StudentDTO(String id, String password, String name, String email, long courseCode, String courseName, List<SubjectDTO> subjectDTOS) {
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+		this.courseCode = courseCode;
+		this.courseName = courseName;
+		this.subjectDTOS = subjectDTOS;
 	}
 
 	public String getId() {
@@ -74,11 +70,11 @@ public class StudentDTO implements Serializable {
 		this.email = email;
 	}
 
-	public int getCourseCode() {
+	public long getCourseCode() {
 		return courseCode;
 	}
 
-	public void setCourseCode(int courseCode) {
+	public void setCourseCode(long courseCode) {
 		this.courseCode = courseCode;
 	}
 
@@ -88,5 +84,13 @@ public class StudentDTO implements Serializable {
 
 	public void setCourseName(String courseName) {
 		this.courseName = courseName;
+	}
+
+	public List<SubjectDTO> getSubjectDTOS() {
+		return subjectDTOS;
+	}
+
+	public void setSubjectDTOS(List<SubjectDTO> subjectDTOS) {
+		this.subjectDTOS = subjectDTOS;
 	}
 }

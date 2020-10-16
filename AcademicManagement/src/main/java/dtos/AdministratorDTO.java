@@ -23,19 +23,6 @@ public class AdministratorDTO implements Serializable {
 		this.email = email;
 	}
 
-	public static AdministratorDTO toDTO(Administrator administrator) {
-		return new AdministratorDTO(
-				administrator.getId(),
-				administrator.getPassword(),
-				administrator.getName(),
-				administrator.getEmail()
-		);
-	}
-
-	public static List<AdministratorDTO> toDTOs(List<Administrator> administrators) {
-		return administrators.stream().map(AdministratorDTO::toDTO).collect(Collectors.toList());
-	}
-
 	public String getId() {
 		return id;
 	}

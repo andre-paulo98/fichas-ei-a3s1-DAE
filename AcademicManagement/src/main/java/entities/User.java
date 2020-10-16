@@ -2,6 +2,7 @@ package entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Version;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
@@ -19,6 +20,9 @@ public class User {
 	@NotNull
 	@Email
 	private String email;
+
+	@Version
+	private int version;
 
 	public User() {
 	}

@@ -31,6 +31,9 @@ public class Subject {
     @Column(name = "SCHOLAR_YEAR")
     private int scholarYear;
 
+    @Version
+    private int version;
+
     @ManyToMany
     @JoinTable(name = "SUBJECTS_STUDENTS",
             joinColumns = @JoinColumn(name = "SUBJECT_CODE", referencedColumnName = "CODE"),

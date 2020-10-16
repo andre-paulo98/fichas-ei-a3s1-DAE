@@ -13,35 +13,20 @@ public class SubjectDTO implements Serializable {
     private int code;
     private String name;
     private String courseName;
-    private int courseCode;
+    private long courseCode;
     private String courseYear;
     private int scholarYear;
 
 	public SubjectDTO() {
 	}
 
-	public SubjectDTO(int code, String name, int courseCode, String courseName, String courseYear, int scholarYear) {
+	public SubjectDTO(int code, String name, long courseCode, String courseName, String courseYear, int scholarYear) {
 		this.code = code;
 		this.name = name;
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.courseYear = courseYear;
 		this.scholarYear = scholarYear;
-	}
-
-	public static SubjectDTO toDTO(Subject subject) {
-		return new SubjectDTO(
-				subject.getCode(),
-				subject.getName(),
-				subject.getCourse().getId(),
-				subject.getCourse().getName(),
-				subject.getCourseYear(),
-				subject.getScholarYear()
-		);
-	}
-
-	public static List<SubjectDTO> toDTOs(List<Subject> subjects) {
-		return subjects.stream().map(SubjectDTO::toDTO).collect(Collectors.toList());
 	}
 
 	public int getCode() {
@@ -68,11 +53,11 @@ public class SubjectDTO implements Serializable {
 		this.courseName = courseName;
 	}
 
-	public int getCourseCode() {
+	public long getCourseCode() {
 		return courseCode;
 	}
 
-	public void setCourseCode(int courseCode) {
+	public void setCourseCode(long courseCode) {
 		this.courseCode = courseCode;
 	}
 

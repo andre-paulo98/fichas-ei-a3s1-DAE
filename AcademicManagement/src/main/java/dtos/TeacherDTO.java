@@ -24,14 +24,6 @@ public class TeacherDTO {
 		this.office = office;
 	}
 
-	public static TeacherDTO toDTO(Teacher teacher) {
-		return new TeacherDTO(teacher.getId(), teacher.getPassword(), teacher.getName(), teacher.getEmail(), teacher.getOffice());
-	}
-
-	public static List<TeacherDTO> toDTOs(List<Teacher> teachers) {
-		return teachers.stream().map(TeacherDTO::toDTO).collect(Collectors.toList());
-	}
-
 	public String getId() {
 		return id;
 	}
