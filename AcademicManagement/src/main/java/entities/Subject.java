@@ -42,15 +42,17 @@ public class Subject {
 
     public Subject() {
         students = new LinkedHashSet<>();
+        teachers = new LinkedHashSet<>();
     }
 
-    public Subject(int code, String name, Course course, String courseYear, int scholarYear, Set<Student> students) {
+    public Subject(int code, String name, Course course, String courseYear, int scholarYear, Set<Student> students, Set<Teacher> teachers) {
         this.code = code;
         this.name = name;
         this.course = course;
         this.courseYear = courseYear;
         this.scholarYear = scholarYear;
         this.students = students;
+        this.teachers = teachers;
     }
 
     public int getCode() {

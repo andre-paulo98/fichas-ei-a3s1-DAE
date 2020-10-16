@@ -72,6 +72,12 @@ public class ConfigBean {
 		teacherBean.create("t3", "1", "Orlando Milheiriço", "orlando@mail.com", "A3");
 		teacherBean.create("t4", "1", "Edgar Roriz", "edgar@mail.com", "A4");
 
+		System.out.println("##### Enroling Teachers...");
+		subjectBean.associateTeacherInSubject(1, "t1");
+		subjectBean.associateTeacherInSubject(1, "t2");
+		subjectBean.associateTeacherInSubject(2, "t3");
+		subjectBean.associateTeacherInSubject(3, "t4");
+
 
 		System.out.println("##### Creating admins...");
 		administratorBean.create("a1", "1", "super Admin1", "a1@mail.com");

@@ -19,10 +19,10 @@ public class SubjectBean {
     @PersistenceContext
     EntityManager entityManager;
 
-    public void create(int code, String name, int courseID, String courseName, String courseYear, int scholarYear, Set<Student> students) {
+    public void create(int code, String name, int courseID, String courseName, String courseYear, int scholarYear, Set<Student> students, Set<Teacher> teachers) {
         Course course = entityManager.find(Course.class, courseID);
         if(course != null) {
-            Subject subject = new Subject(code, name, course, courseYear, scholarYear, students);
+            Subject subject = new Subject(code, name, course, courseYear, scholarYear, students, teachers);
             entityManager.persist(subject);
         } else {
             throw new NotFoundException("COURSE NOT FOUND");
@@ -32,7 +32,7 @@ public class SubjectBean {
     public void create(int code, String name, int courseID, String courseName, String courseYear, int scholarYear) {
         Course course = entityManager.find(Course.class, courseID);
         if(course != null) {
-            Subject subject = new Subject(code, name, course, courseYear, scholarYear, new LinkedHashSet<>());
+            Subject subject = new Subject(code, name, course, courseYear, scholarYear, new LinkedHashSet<>(), new LinkedHashSet<>());
             entityManager.persist(subject);
         } else {
             throw new NotFoundException("COURSE NOT FOUND");
@@ -40,7 +40,7 @@ public class SubjectBean {
     }
 
     public void create(int code, String name, Course course, String courseYear, int scholarYear) {
-        Subject subject = new Subject(code, name, course, courseYear, scholarYear, new LinkedHashSet<>());
+        Subject subject = new Subject(code, name, course, courseYear, scholarYear, new LinkedHashSet<>(), new LinkedHashSet<>());
         entityManager.persist(subject);
     }
 
