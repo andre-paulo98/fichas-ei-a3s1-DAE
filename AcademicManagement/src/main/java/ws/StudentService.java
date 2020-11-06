@@ -1,8 +1,10 @@
 package ws;
 
+import dtos.EmailDTO;
 import dtos.StudentDTO;
 import dtos.SubjectDTO;
 import dtos.TeacherDTO;
+import ejbs.EmailBean;
 import ejbs.StudentBean;
 import entities.Student;
 import entities.Subject;
@@ -11,10 +13,10 @@ import exceptions.MyEntityExistsException;
 import exceptions.MyEntityNotFoundException;
 
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
 import javax.ws.rs.*;
-import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,6 +28,11 @@ public class StudentService {
 
     @EJB
     private StudentBean studentBean;
+    @EJB
+    private EmailBean emailBean;
+
+    @Context
+    private SecurityContext securityContext;
 
     @GET // means: to call this endpoint, we need to use the HTTP GET method
     @Path("/") // means: the relative url path is “/api/students/”
@@ -54,6 +61,16 @@ public class StudentService {
     @GET
     @Path("{id}")
     public Response getStudentDetails(@PathParam("id") String id) {
+
+        Principal principal = securityContext.getUserPrincipal();
+        if(!(securityContext.isUserInRole("Administrator") ||
+                securityContext.isUserInRole("Teacher") ||
+                securityContext.isUserInRole("Student") &&
+                        principal.getName().equals(id))) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+
+
         Student student = studentBean.getStudent(id);
         if (student != null) {
             return Response.status(Response.Status.OK)
@@ -119,6 +136,18 @@ public class StudentService {
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                 .entity("ERROR_FINDING_STUDENT")
                 .build();
+    }
+
+    @POST
+    @Path("/{username}/email/send")
+    public Response sendEmail(@PathParam("username") String username, EmailDTO email) throws MyEntityNotFoundException, MessagingException {
+        Student student = studentBean.getStudent(username);
+        if (student == null) {
+            throw new MyEntityNotFoundException("Student with username '" + username
+                    + "' not found in our records.");
+        }
+        emailBean.send(student.getEmail(), email.getSubject(), email.getMessage());
+        return Response.status(Response.Status.OK).entity("E-mail sent").build();
     }
 
     public static StudentDTO toDTO(Student student) {

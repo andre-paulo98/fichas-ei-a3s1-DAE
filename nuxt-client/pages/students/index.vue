@@ -6,7 +6,12 @@
       <template v-slot:cell(actions)="row">
         <nuxt-link
           class="btn btn-link"
-          :to="`/students/${row.item.id}`">Details</nuxt-link>
+          :to="`/students/${row.item.id}`">
+          Details
+        </nuxt-link>
+        <nuxt-link :to="`/students/${row.item.id}/send-email`">
+          Send email
+        </nuxt-link>
       </template>
     </b-table>
     <nuxt-link to="/students/create">Create a New Student</nuxt-link>
