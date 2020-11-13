@@ -14,7 +14,9 @@ public class UserBean {
 
 	public User authenticate(final String username, final String password) throws Exception {
 		User user = em.find(User.class, username);
-		if (user != null && user.getPassword().equals(User.hashPassword(password))) {
+		String passwordC = user.getPassword();
+		String hashed = User.hashPassword(password);
+		if (user != null && passwordC.equals(hashed)) {
 			return user;
 		}
 		throw new Exception("Failed logging in with username '" + username + "': unknown username or wrong password");

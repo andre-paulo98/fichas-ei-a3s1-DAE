@@ -4,19 +4,23 @@
       <template v-slot:cell(actions)="row">
         <button
           class="btn btn-link"
-          @click="apagar(`${row.item.id}`)">
+          @click="apagar(`${row.item.id}`)"
+        >
           Remove
         </button>
       </template>
     </b-table>
-    <select v-model="selected">
-      <option v-for="student in possibleStudents" :key="student.id">
-        {{ student.name }}
-      </option>
-    </select>
+    <label>
+      <select v-model="selected">
+        <option v-for="student in possibleStudents" :key="student.id">
+          {{ student.name }}
+        </option>
+      </select>
+    </label>
     <button
       class="btn btn-link"
-      @click="add()">
+      @click="add()"
+    >
       Add
     </button> |
     <nuxt-link :to="`/subjects/${id}`">

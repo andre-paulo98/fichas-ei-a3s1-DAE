@@ -15,6 +15,7 @@ public class StudentDTO implements Serializable {
 	private long courseCode;
 	private String courseName;
 	private List<SubjectDTO> subjectDTOS;
+	private List<DocumentDTO> documentDTOS;
 
 	public StudentDTO() {
 	}

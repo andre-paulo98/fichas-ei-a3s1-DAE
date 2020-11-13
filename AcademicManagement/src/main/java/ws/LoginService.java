@@ -2,6 +2,7 @@ package ws;
 
 import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTParser;
+import dtos.AuthDTO;
 import ejbs.UserBean;
 import entities.User;
 import jwt.Jwt;
@@ -27,10 +28,10 @@ public class LoginService {
 	@POST
 	@Path("/token")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response authenticateUser(@FormParam("id") String id, @FormParam("password") String password) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response authenticateUser(AuthDTO authDTO) {
 		try {
-			User user = userBean.authenticate(id, password);
+			User user = userBean.authenticate(authDTO.getId(), authDTO.getPassword());
 			if (user != null) {
 				if (user.getId() != null) {
 					log.info("Generating JWT for user " + user.getId());

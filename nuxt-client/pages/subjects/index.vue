@@ -6,7 +6,8 @@
       <template v-slot:cell(actions)="row">
         <nuxt-link
           class="btn btn-link"
-          :to="`/subjects/${row.item.code}`">
+          :to="`/subjects/${row.item.code}`"
+        >
           Details
         </nuxt-link>
       </template>

@@ -1,19 +1,44 @@
 ### GET JWT token
 POST http://localhost:8080/academics/api/login/token
-Content-Type: application/x-www-form-urlencoded
+Content-Type: application/json
 
-id=s1&password=1
+{
+  "id": "s2",
+  "password": "1"
+}
 
 ### Who am I?
 GET http://localhost:8080/academics/api/login/claims
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJzMSIsImlzcyI6InF1aWNrc3RhcnQtand0LWlzc3VlciIsImF1ZCI6Imp3dC1hdWRpZW5jZSIsImdyb3VwcyI6WyJTdHVkZW50Il0sImV4cCI6MTYwNDY3ODgxN30.Gt080ThjQPmyQMJl5RuDuvBjx_61wpfS9CtPa3Rf-yIj3EumOLS35y6sDi-J6uosph00rOVUKrLzXwx5HS7sp8PlYJretDS887j4QCfXcJdwF5Vh2tqGQYv_kKgJwtNijvaCzuUgkBWASzkMZCGwQE9A58vHT9dvgoI15OHEpfiIbJrzOQqGeg_2tQm5anwviYBIqV-MCUSjya9uPO3GX2ldB66QeAj58pXrs_-3k2skDVXaEEAbLRrt_Pkw8QTVNV_UWVp9gTnvI5VuPuGdwKowDGM1KPspgr8BKSMQlul6TGPvIZTTHdN0HgBHBF1dp1GFoek2ZjWrf6otanL3yw
+Authorization: Bearer {{token}}
+
+###
+POST http://localhost:8080/academics/api/documents/upload HTTP/1.1
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="I.pdf"
+
+< C:\Users\andre\Desktop\I.pdf
+
+--boundary
+Content-Disposition: form-data; name="id"
+
+s2
+
+--boundary
+
+###
+GET http://localhost:8080/academics/api/documents/1 HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+
 
 
 ##### Students
 GET http://localhost:8080/academics/api/students
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJzMSIsImlzcyI6InF1aWNrc3RhcnQtand0LWlzc3VlciIsImF1ZCI6Imp3dC1hdWRpZW5jZSIsImdyb3VwcyI6WyJTdHVkZW50Il0sImV4cCI6MTYwNDY3ODgxN30.Gt080ThjQPmyQMJl5RuDuvBjx_61wpfS9CtPa3Rf-yIj3EumOLS35y6sDi-J6uosph00rOVUKrLzXwx5HS7sp8PlYJretDS887j4QCfXcJdwF5Vh2tqGQYv_kKgJwtNijvaCzuUgkBWASzkMZCGwQE9A58vHT9dvgoI15OHEpfiIbJrzOQqGeg_2tQm5anwviYBIqV-MCUSjya9uPO3GX2ldB66QeAj58pXrs_-3k2skDVXaEEAbLRrt_Pkw8QTVNV_UWVp9gTnvI5VuPuGdwKowDGM1KPspgr8BKSMQlul6TGPvIZTTHdN0HgBHBF1dp1GFoek2ZjWrf6otanL3yw
+Authorization: Bearer {{token}}
 ###
 POST http://localhost:8080/academics/api/students
 Content-Type: application/json

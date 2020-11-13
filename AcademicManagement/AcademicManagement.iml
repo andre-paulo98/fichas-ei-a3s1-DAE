@@ -52,5 +52,7 @@
     <orderEntry type="library" name="javax.mail" level="project" />
     <orderEntry type="library" name="com.nimbusds:nimbus-jose-jwt:4.23" level="project" />
     <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
+    <orderEntry type="library" name="org.jboss.resteasy:resteasy-multipart-provider:2.2.3.GA" level="project" />
+    <orderEntry type="library" name="commons-io:commons-io:2.8.0" level="project" />
   </component>
 </module>

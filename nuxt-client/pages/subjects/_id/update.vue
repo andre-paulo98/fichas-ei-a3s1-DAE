@@ -1,27 +1,41 @@
 <template>
   <form @submit.prevent="create">
     <div>
-      course:
-      <select v-model="courseCode">
-        <template v-for="course in courses">
-          <option :key="course.id" :value="course.id">
-            {{ course.name }}
-          </option>
-        </template>
-      </select>
+      <label>
+        course:
+        <select v-model="courseCode">
+          <template v-for="course in courses">
+            <option :key="course.id" :value="course.id">
+              {{ course.name }}
+            </option>
+          </template>
+        </select>
+      </label>
     </div>
     <div>
-      name: <input v-model="name" type="text">
+      <label> name:
+        <input v-model="name" type="text">
+      </label>
     </div>
     <div>
-      course year: <input v-model="courseYear" type="text">
+      <label> course year:
+        <input v-model="courseYear" type="text">
+      </label>
     </div>
     <div>
-      scholar year: <input v-model="scholarYear" type="number">
+      <label> scholar year:
+        <input v-model="scholarYear" type="number">
+      </label>
     </div>
-    <nuxt-link :to="`/subjects/${id}`">Return</nuxt-link>
-    <button type="reset">RESET</button>
-    <button @click.prevent="update">UPDATE</button>
+    <nuxt-link :to="`/subjects/${id}`">
+      Return
+    </nuxt-link>
+    <button type="reset">
+      RESET
+    </button>
+    <button @click.prevent="update">
+      UPDATE
+    </button>
   </form>
 </template>
 <script>

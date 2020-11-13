@@ -14,8 +14,8 @@
           id="username"
           v-model.trim="username"
           :state="isUsernameValid"
-          trim>
-        </b-input>
+          trim
+        />
       </b-form-group>
 
       <b-input
@@ -130,28 +130,19 @@ export default {
       return this.courses.some(course => this.courseId === course.id)
     },
     isFormValid () {
-      console.log('1')
       if (!this.isUsernameValid) {
         return false
       }
-      console.log('2')
       if (!this.isPasswordValid) {
         return false
       }
-      console.log('3')
       if (!this.isNameValid) {
         return false
       }
-      console.log('4')
       if (!this.isEmailValid) {
         return false
       }
-      console.log('5')
-      if (!this.isCourseValid) {
-        return false
-      }
-      console.log('6')
-      return true
+      return this.isCourseValid
     }
   },
   created () {

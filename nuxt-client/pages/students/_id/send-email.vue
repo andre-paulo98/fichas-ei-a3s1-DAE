@@ -4,18 +4,21 @@
     <form @submit.prevent="send">
       <div>
         subject:
-        <input
-          v-model="subject"
-          type="text"
-        >
+        <label>
+          <input
+            v-model="subject"
+            type="text"
+          >
+        </label>
       </div>
       <div>
         message:
-        <textarea
-          v-model="message"
-          name="message"
-        >
-        </textarea>
+        <label>
+          <textarea
+            v-model="message"
+            name="message"
+          />
+        </label>
       </div>
       <nuxt-link :to="`/students`">
         Go to Students
